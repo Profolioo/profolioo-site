@@ -3,39 +3,41 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Profolioo — The Portfolio Platform for Education</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<title>Profolioo — Coming Soon · The Portfolio Platform for Education</title>
 <style>
-  /* ───── TOKENS ───── */
+  /* ───── SF PRO FONT STACK ───── */
   :root {
+    --font: -apple-system, "SF Pro Display", "SF Pro Text", BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --font-display: -apple-system, "SF Pro Display", BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
     --orange:      #FF7300;
     --orange-light:#FF9940;
     --orange-pale: #FFF3E8;
-    --orange-glow: rgba(255,115,0,0.18);
+    --orange-dim:  rgba(255,115,0,0.13);
+    --orange-glow: rgba(255,115,0,0.22);
     --ink:         #1A1A2E;
     --ink-mid:     #3D3D55;
     --ink-soft:    #7A7A92;
-    --surface:     #F9F5F0;
+    --surface:     #F8F5F1;
     --white:       #FFFFFF;
-    --radius-sm:   8px;
-    --radius-md:   16px;
+    --radius-sm:   10px;
+    --radius-md:   18px;
     --radius-lg:   28px;
-    --shadow-card: 0 4px 32px rgba(26,26,46,0.09);
-    --shadow-btn:  0 8px 28px rgba(255,115,0,0.38);
-    --transition:  0.35s cubic-bezier(0.4,0,0.2,1);
+    --shadow-card: 0 4px 40px rgba(26,26,46,0.08);
+    --shadow-btn:  0 8px 32px rgba(255,115,0,0.4);
+    --transition:  0.32s cubic-bezier(0.4,0,0.2,1);
   }
 
-  /* ───── RESET ───── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font);
     background: var(--white);
     color: var(--ink);
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
@@ -45,681 +47,437 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw;
-    height: 68px;
-    background: rgba(255,255,255,0.88);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255,115,0,0.08);
+    padding: 0 5vw; height: 70px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border-bottom: 1px solid rgba(255,115,0,0.07);
     transition: box-shadow var(--transition);
   }
-  nav.scrolled { box-shadow: 0 2px 24px rgba(26,26,46,0.08); }
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.55rem;
-    color: var(--ink);
-    letter-spacing: -0.5px;
-  }
-  .nav-logo span { color: var(--orange); }
-  .nav-links {
-    display: flex; align-items: center; gap: 2rem;
-    list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.92rem; font-weight: 500; color: var(--ink-mid);
-    transition: color var(--transition);
-  }
+  nav.scrolled { box-shadow: 0 2px 28px rgba(26,26,46,0.08); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo svg { height: 28px; width: auto; }
+  .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+  .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--ink-mid); letter-spacing: -0.1px; transition: color var(--transition); }
   .nav-links a:hover { color: var(--orange); }
   .nav-cta {
-    background: var(--orange);
-    color: var(--white);
-    padding: 0.55rem 1.4rem;
-    border-radius: 100px;
-    font-size: 0.9rem; font-weight: 600;
+    background: var(--orange); color: var(--white);
+    padding: 0.55rem 1.45rem; border-radius: 100px;
+    font-size: 0.88rem; font-weight: 600; letter-spacing: -0.1px;
     transition: background var(--transition), box-shadow var(--transition), transform var(--transition);
   }
-  .nav-cta:hover {
-    background: var(--orange-light);
-    box-shadow: var(--shadow-btn);
-    transform: translateY(-1px);
-  }
+  .nav-cta:hover { background: var(--orange-light); box-shadow: var(--shadow-btn); transform: translateY(-1px); }
   .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; padding: 4px; }
   .nav-burger span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; transition: var(--transition); }
+  .mobile-nav {
+    display: none; flex-direction: column;
+    position: fixed; top: 70px; left: 0; right: 0; z-index: 99;
+    background: var(--white); padding: 1.5rem 5vw;
+    border-bottom: 1px solid rgba(26,26,46,0.07);
+    box-shadow: 0 10px 40px rgba(26,26,46,0.1); gap: 1rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a { font-size: 1rem; font-weight: 500; color: var(--ink-mid); padding: 0.5rem 0; border-bottom: 1px solid rgba(26,26,46,0.05); }
+  .mobile-nav a:last-child { border: none; }
 
   /* ───── HERO ───── */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-    padding: 120px 5vw 80px;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--orange-glow), transparent 70%),
-                var(--white);
+    text-align: center; padding: 130px 5vw 100px;
+    background:
+      radial-gradient(ellipse 90% 55% at 50% -5%, var(--orange-glow), transparent 65%),
+      var(--white);
     position: relative; overflow: hidden;
   }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--orange-pale);
-    border: 1px solid rgba(255,115,0,0.2);
-    border-radius: 100px;
-    padding: 0.35rem 1rem;
-    font-size: 0.82rem; font-weight: 600; color: var(--orange);
-    margin-bottom: 1.8rem;
-    animation: fadeUp 0.6s ease both;
+
+  /* grid lines background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,115,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,115,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 30%, transparent 80%);
+    pointer-events: none;
   }
-  .hero-badge-dot {
+
+  .coming-soon-pill {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    background: var(--ink); color: var(--white);
+    border-radius: 100px; padding: 0.4rem 1.1rem;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+    position: relative; z-index: 1;
+  }
+  .cs-dot {
     width: 7px; height: 7px; border-radius: 50%; background: var(--orange);
     animation: pulse 1.8s ease infinite;
   }
-  @keyframes pulse {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50%      { opacity: 0.5; transform: scale(1.35); }
-  }
-  .hero-headline {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: clamp(2.6rem, 6vw, 5rem);
-    line-height: 1.07; letter-spacing: -1.5px;
-    color: var(--ink);
-    max-width: 820px;
-    animation: fadeUp 0.7s 0.1s ease both;
-  }
-  .hero-headline .highlight {
-    color: var(--orange);
-    position: relative; display: inline-block;
-  }
-  .hero-headline .highlight::after {
-    content: '';
-    position: absolute; bottom: -4px; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--orange), var(--orange-light));
-    border-radius: 2px;
-    transform: scaleX(0); transform-origin: left;
-    animation: underlineIn 0.7s 0.9s ease forwards;
-  }
-  @keyframes underlineIn { to { transform: scaleX(1); } }
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(1.4); } }
 
-  /* Persona typewriter */
-  .hero-persona-wrap {
-    display: inline-block;
-    min-width: 220px; text-align: left;
+  .hero-headline {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(2.8rem, 6.5vw, 5.4rem);
+    line-height: 1.06; letter-spacing: -2.5px;
+    color: var(--ink); max-width: 860px;
+    animation: fadeUp 0.7s 0.1s ease both;
+    position: relative; z-index: 1;
   }
-  #persona-text {
+  .hero-headline em { font-style: normal; color: var(--orange); }
+  .hero-headline .word-swap {
+    display: inline-block; position: relative;
     color: var(--orange);
+    border-bottom: 3px solid var(--orange);
+    padding-bottom: 2px;
+  }
+  #swap-word {
     border-right: 3px solid var(--orange);
     animation: blink 0.75s step-end infinite;
-    padding-right: 3px;
+    padding-right: 2px;
   }
-  @keyframes blink { 0%,100% { border-color: var(--orange); } 50% { border-color: transparent; } }
+  @keyframes blink { 0%,100% { border-color:var(--orange); } 50% { border-color:transparent; } }
 
   .hero-sub {
-    margin-top: 1.6rem;
-    font-size: 1.15rem; font-weight: 400; color: var(--ink-mid);
-    max-width: 560px; line-height: 1.7;
-    animation: fadeUp 0.7s 0.25s ease both;
+    margin-top: 1.8rem; font-size: 1.18rem; font-weight: 400;
+    color: var(--ink-mid); max-width: 560px; line-height: 1.72;
+    animation: fadeUp 0.7s 0.22s ease both;
+    position: relative; z-index: 1;
   }
+
   .hero-actions {
-    margin-top: 2.4rem;
+    margin-top: 2.6rem;
     display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
-    animation: fadeUp 0.7s 0.38s ease both;
+    animation: fadeUp 0.7s 0.34s ease both;
+    position: relative; z-index: 1;
   }
   .btn-primary {
-    background: var(--orange);
-    color: var(--white);
-    padding: 0.85rem 2.2rem;
-    border-radius: 100px; font-size: 1rem; font-weight: 600;
+    background: var(--orange); color: var(--white);
+    padding: 0.9rem 2.4rem; border-radius: 100px;
+    font-size: 1rem; font-weight: 600; letter-spacing: -0.2px;
     box-shadow: var(--shadow-btn);
     transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
   }
-  .btn-primary:hover {
-    background: var(--orange-light);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 36px rgba(255,115,0,0.45);
-  }
-  .btn-secondary {
-    background: transparent;
-    color: var(--ink-mid);
-    padding: 0.85rem 2.2rem;
-    border-radius: 100px; font-size: 1rem; font-weight: 500;
-    border: 1.5px solid rgba(26,26,46,0.15);
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,115,0,0.48); }
+  .btn-ghost {
+    background: transparent; color: var(--ink-mid);
+    padding: 0.9rem 2.4rem; border-radius: 100px;
+    font-size: 1rem; font-weight: 500;
+    border: 1.5px solid rgba(26,26,46,0.14);
     transition: border-color var(--transition), color var(--transition), transform var(--transition);
   }
-  .btn-secondary:hover {
-    border-color: var(--orange);
-    color: var(--orange);
-    transform: translateY(-2px);
-  }
-  .hero-social-proof {
-    margin-top: 2.8rem;
+  .btn-ghost:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
+
+  .hero-proof {
+    margin-top: 3rem;
     display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;
-    font-size: 0.88rem; color: var(--ink-soft);
-    animation: fadeUp 0.7s 0.5s ease both;
+    font-size: 0.87rem; color: var(--ink-soft);
+    animation: fadeUp 0.7s 0.46s ease both;
+    position: relative; z-index: 1;
   }
-  .hero-avatars {
-    display: flex;
-  }
+  .hero-avatars { display: flex; }
   .hero-avatars span {
     width: 34px; height: 34px; border-radius: 50%;
     border: 2.5px solid var(--white);
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.75rem; font-weight: 600;
+    font-size: 0.72rem; font-weight: 700;
     margin-left: -10px; background: var(--orange-pale); color: var(--orange);
   }
   .hero-avatars span:first-child { margin-left: 0; }
 
-  /* Floating decoration */
-  .hero-floats {
-    position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-  }
+  /* floating chips */
+  .hero-floats { position: absolute; inset: 0; pointer-events: none; }
   .float-chip {
-    position: absolute;
-    background: var(--white);
-    border: 1px solid rgba(255,115,0,0.18);
-    border-radius: var(--radius-md);
-    padding: 0.6rem 1rem;
-    font-size: 0.82rem; font-weight: 500; color: var(--ink-mid);
-    box-shadow: 0 4px 18px rgba(26,26,46,0.07);
+    position: absolute; background: var(--white);
+    border: 1px solid rgba(255,115,0,0.16); border-radius: var(--radius-md);
+    padding: 0.65rem 1.1rem; font-size: 0.8rem; font-weight: 500; color: var(--ink-mid);
+    box-shadow: 0 4px 20px rgba(26,26,46,0.08);
     display: flex; align-items: center; gap: 0.5rem;
     animation: float 5s ease-in-out infinite;
   }
-  .float-chip .chip-icon { font-size: 1.1rem; }
-  .fc1 { top: 18%; left: 5%; animation-delay: 0s; }
-  .fc2 { top: 30%; right: 4%; animation-delay: 1.2s; }
-  .fc3 { bottom: 20%; left: 7%; animation-delay: 0.7s; }
-  .fc4 { bottom: 28%; right: 5%; animation-delay: 2s; }
-  @keyframes float {
-    0%,100% { transform: translateY(0px); }
-    50%      { transform: translateY(-10px); }
-  }
+  .fc1 { top: 22%; left: 4%;  animation-delay: 0s; }
+  .fc2 { top: 32%; right: 3%; animation-delay: 1.3s; }
+  .fc3 { bottom: 22%; left: 6%; animation-delay: 0.6s; }
+  .fc4 { bottom: 30%; right: 4%; animation-delay: 2s; }
+  @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-10px); } }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(22px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ───── LOGOS STRIP ───── */
-  .logos-strip {
-    background: var(--surface);
-    padding: 2.2rem 5vw;
-    text-align: center;
-    overflow: hidden;
-  }
-  .logos-strip p {
-    font-size: 0.8rem; font-weight: 600; color: var(--ink-soft);
-    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.4rem;
-  }
-  .logos-track {
-    display: flex; gap: 3.5rem; align-items: center; justify-content: center;
-    flex-wrap: wrap;
-  }
-  .logo-pill {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700; font-size: 1.05rem;
-    color: var(--ink-soft); letter-spacing: -0.3px;
-    opacity: 0.6;
-    transition: opacity var(--transition);
-  }
+  /* ───── LOGOS ───── */
+  .logos-strip { background: var(--surface); padding: 2.4rem 5vw; }
+  .logos-strip p { font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; margin-bottom: 1.5rem; }
+  .logos-track { display: flex; gap: 3rem; align-items: center; justify-content: center; flex-wrap: wrap; }
+  .logo-pill { font-weight: 700; font-size: 1rem; color: var(--ink-soft); opacity: 0.5; letter-spacing: -0.3px; transition: opacity var(--transition), color var(--transition); }
   .logo-pill:hover { opacity: 1; color: var(--orange); }
 
-  /* ───── SECTION SHARED ───── */
+  /* ───── SHARED SECTION ───── */
   section { padding: 100px 5vw; }
-  .section-label {
+  .section-eyebrow {
     display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
     color: var(--orange); margin-bottom: 1rem;
   }
-  .section-label::before {
-    content: ''; width: 18px; height: 2px; background: var(--orange); border-radius: 2px;
-  }
+  .section-eyebrow::before { content:''; width:18px; height:2px; background:var(--orange); border-radius:2px; }
   .section-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: clamp(1.9rem, 3.5vw, 2.9rem);
-    line-height: 1.15; letter-spacing: -0.8px; color: var(--ink);
-    max-width: 560px;
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.12; letter-spacing: -1px; color: var(--ink); max-width: 600px;
   }
-  .section-sub {
-    margin-top: 0.9rem;
-    font-size: 1.05rem; color: var(--ink-mid); max-width: 520px; line-height: 1.7;
-  }
+  .section-sub { margin-top: 1rem; font-size: 1.05rem; color: var(--ink-mid); max-width: 540px; line-height: 1.72; }
 
-  /* ───── PERSONAS ───── */
+  /* ───── PROBLEM / HOOK ───── */
+  .problem { background: var(--ink); padding: 90px 5vw; }
+  .problem-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .problem-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange-light); margin-bottom: 1.2rem; }
+  .problem-eyebrow::before { content:''; width:18px; height:2px; background:var(--orange); border-radius:2px; }
+  .problem-title {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.12; letter-spacing: -1px; color: var(--white); margin-bottom: 1.4rem;
+  }
+  .problem-title span { color: var(--orange); }
+  .problem-sub { font-size: 1.1rem; color: rgba(255,255,255,0.6); line-height: 1.72; max-width: 680px; margin: 0 auto 3.5rem; }
+  .pain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: left; }
+  .pain-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius-lg); padding: 2rem 1.8rem;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .pain-card:hover { background: rgba(255,255,255,0.08); transform: translateY(-4px); }
+  .pain-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+  .pain-card h4 { font-weight: 700; color: var(--white); font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .pain-card p { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* ───── PERSONAS (teacher + school primary, student secondary) ───── */
   .personas { background: var(--white); }
-  .personas-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+  .personas-layout {
     margin-top: 3.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
   }
-  .persona-card {
+  /* Teacher card spans full width as hero persona */
+  .persona-hero-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #1A1A2E 0%, #2d2d4a 100%);
     border-radius: var(--radius-lg);
-    padding: 2.4rem 2rem;
-    background: var(--white);
-    border: 1.5px solid rgba(26,26,46,0.07);
+    padding: 3.5rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
     position: relative; overflow: hidden;
-    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
   }
-  .persona-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--orange);
-    box-shadow: var(--shadow-card);
-  }
-  .persona-card::before {
+  .persona-hero-card::before {
     content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, var(--orange), var(--orange-light));
-    opacity: 0; transition: opacity var(--transition);
+    position: absolute; top: -60px; right: -60px;
+    width: 260px; height: 260px; border-radius: 50%;
+    background: radial-gradient(circle, var(--orange-glow), transparent 70%);
+    pointer-events: none;
   }
-  .persona-card:hover::before { opacity: 1; }
-  .persona-icon {
-    width: 56px; height: 56px; border-radius: var(--radius-md);
-    background: var(--orange-pale);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.7rem; margin-bottom: 1.4rem;
+  .phc-label {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,115,0,0.18); color: var(--orange-light);
+    border-radius: 100px; padding: 0.35rem 1rem;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 1.2rem;
   }
-  .persona-card h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.25rem; font-weight: 700; color: var(--ink);
-    margin-bottom: 0.6rem;
+  .persona-hero-card h3 {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+    color: var(--white); line-height: 1.18; letter-spacing: -0.8px; margin-bottom: 1rem;
   }
-  .persona-card p { font-size: 0.95rem; color: var(--ink-mid); line-height: 1.65; }
-  .persona-features {
-    list-style: none; margin-top: 1.4rem; display: flex; flex-direction: column; gap: 0.5rem;
+  .persona-hero-card h3 span { color: var(--orange); }
+  .persona-hero-card p { font-size: 1rem; color: rgba(255,255,255,0.65); line-height: 1.72; margin-bottom: 1.8rem; }
+  .phc-features { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .phc-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.93rem; color: rgba(255,255,255,0.8); }
+  .phc-features li::before { content:'✓'; color: var(--orange); font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+  .phc-visual {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-md); padding: 1.8rem;
+    display: flex; flex-direction: column; gap: 1rem;
   }
-  .persona-features li {
-    font-size: 0.88rem; color: var(--ink-mid);
-    display: flex; align-items: flex-start; gap: 0.5rem;
+  .phc-vis-title { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.3rem; }
+  .phc-stat-row { display: flex; gap: 0.8rem; }
+  .phc-stat {
+    flex: 1; background: rgba(255,115,0,0.1); border-radius: var(--radius-sm);
+    padding: 0.9rem 0.8rem; text-align: center;
   }
-  .persona-features li::before {
-    content: '✓'; color: var(--orange); font-weight: 700; flex-shrink: 0;
-  }
+  .phc-stat .sv { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--orange-light); line-height: 1; }
+  .phc-stat .sl { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 3px; }
+  .phc-mini-table { width: 100%; border-collapse: collapse; }
+  .phc-mini-table th { font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.35); text-align: left; padding: 0.3rem 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .phc-mini-table td { font-size: 0.8rem; color: rgba(255,255,255,0.7); padding: 0.45rem 0.5rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  .mbadge { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 100px; font-size: 0.68rem; font-weight: 600; }
+  .mb-g { background: rgba(40,200,100,0.15); color: #6ae89c; }
+  .mb-o { background: rgba(255,115,0,0.2); color: var(--orange-light); }
 
-  /* ───── SCREENSHOTS ───── */
-  .screenshots { background: var(--surface); }
-  .screenshots-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  .tab-group {
-    display: flex; gap: 0.5rem; margin-top: 2.5rem;
+  /* Secondary persona cards */
+  .persona-card {
+    background: var(--white); border: 1.5px solid rgba(26,26,46,0.07);
+    border-radius: var(--radius-lg); padding: 2.4rem 2.2rem;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    position: relative; overflow: hidden;
   }
-  .tab-btn {
-    padding: 0.55rem 1.2rem;
-    border-radius: 100px; font-size: 0.88rem; font-weight: 600;
-    background: transparent; color: var(--ink-soft);
-    border: 1.5px solid rgba(26,26,46,0.12);
-    transition: all var(--transition);
-  }
-  .tab-btn.active, .tab-btn:hover {
-    background: var(--orange); color: var(--white); border-color: var(--orange);
-  }
-  .screenshot-stage {
-    margin-top: 2rem;
-    border-radius: var(--radius-lg);
-    background: var(--white);
-    border: 1.5px solid rgba(26,26,46,0.07);
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-    position: relative;
-    min-height: 460px;
-  }
-  .screenshot-panel {
-    display: none;
-    padding: 0;
-    animation: fadeUp 0.4s ease both;
-  }
-  .screenshot-panel.active { display: block; }
-  .screen-topbar {
-    background: var(--ink);
-    padding: 0.9rem 1.4rem;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .screen-dots { display: flex; gap: 6px; }
-  .screen-dots span {
-    width: 12px; height: 12px; border-radius: 50%;
-  }
-  .sd1 { background: #FF5F57; }
-  .sd2 { background: #FFBD2E; }
-  .sd3 { background: #28C840; }
-  .screen-url {
-    flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px;
-    padding: 0.3rem 0.9rem; font-size: 0.8rem; color: rgba(255,255,255,0.5);
-  }
-  .screen-body {
-    display: grid; grid-template-columns: 220px 1fr; min-height: 400px;
-  }
-  .screen-sidebar {
-    background: var(--ink); padding: 1.5rem 1rem;
-    display: flex; flex-direction: column; gap: 0.4rem;
-  }
-  .screen-sidebar-item {
-    padding: 0.6rem 0.9rem; border-radius: var(--radius-sm);
-    font-size: 0.82rem; color: rgba(255,255,255,0.55);
-    display: flex; align-items: center; gap: 0.6rem;
-    cursor: default;
-    transition: background var(--transition), color var(--transition);
-  }
-  .screen-sidebar-item.active-item {
-    background: rgba(255,115,0,0.2); color: var(--orange-light);
-  }
-  .screen-content { padding: 2rem; }
-  .screen-content h4 {
-    font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700;
-    color: var(--ink); margin-bottom: 1.4rem;
-  }
-  .mock-card-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
-  }
-  .mock-card {
-    border-radius: var(--radius-md);
-    border: 1.5px solid rgba(26,26,46,0.08);
-    overflow: hidden;
-  }
-  .mock-card-img {
-    height: 80px;
-    background: linear-gradient(135deg, var(--orange-pale), #fde3c4);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem;
-  }
-  .mock-card-body { padding: 0.7rem; }
-  .mock-card-body .mock-title {
-    font-size: 0.78rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem;
-  }
-  .mock-card-body .mock-meta {
-    font-size: 0.7rem; color: var(--ink-soft);
-  }
-  .mock-stat-row {
-    display: flex; gap: 1rem; margin-bottom: 1.4rem; flex-wrap: wrap;
-  }
-  .mock-stat {
-    flex: 1; min-width: 100px;
-    background: var(--surface);
-    border-radius: var(--radius-md);
-    padding: 1rem;
-    text-align: center;
-  }
-  .mock-stat .stat-val {
-    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
-    color: var(--orange);
-  }
-  .mock-stat .stat-label { font-size: 0.75rem; color: var(--ink-soft); margin-top: 2px; }
-  .mock-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-  .mock-table th {
-    text-align: left; padding: 0.5rem 0.7rem;
-    background: var(--surface); color: var(--ink-soft); font-weight: 600;
-    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;
-  }
-  .mock-table td { padding: 0.6rem 0.7rem; border-bottom: 1px solid rgba(26,26,46,0.06); }
-  .mock-badge {
-    display: inline-block; padding: 0.2rem 0.6rem; border-radius: 100px;
-    font-size: 0.7rem; font-weight: 600;
-  }
-  .mb-green { background: #E8F8EE; color: #1A9F4B; }
-  .mb-orange { background: var(--orange-pale); color: var(--orange); }
-  .mb-gray   { background: #F0F0F5; color: var(--ink-soft); }
+  .persona-card:hover { transform: translateY(-5px); border-color: var(--orange); box-shadow: var(--shadow-card); }
+  .persona-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--orange),var(--orange-light)); opacity:0; transition:opacity var(--transition); }
+  .persona-card:hover::before { opacity:1; }
+  .p-icon { width:52px; height:52px; border-radius:var(--radius-sm); background:var(--orange-pale); display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin-bottom:1.3rem; }
+  .persona-card h3 { font-family:var(--font-display); font-size:1.2rem; font-weight:700; color:var(--ink); margin-bottom:0.5rem; }
+  .persona-card p { font-size:0.93rem; color:var(--ink-mid); line-height:1.65; }
+  .p-features { list-style:none; margin-top:1.3rem; display:flex; flex-direction:column; gap:0.45rem; }
+  .p-features li { font-size:0.86rem; color:var(--ink-mid); display:flex; align-items:flex-start; gap:0.5rem; }
+  .p-features li::before { content:'✓'; color:var(--orange); font-weight:800; flex-shrink:0; }
+  .student-note { font-size:0.75rem; color:var(--ink-soft); margin-top:1rem; font-style:italic; }
 
   /* ───── FEATURES ───── */
-  .features { background: var(--white); }
-  .features-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 4rem;
-    margin-top: 3.5rem;
-  }
-  .feature-item { display: flex; gap: 1.2rem; align-items: flex-start; }
-  .feature-icon {
-    width: 46px; height: 46px; flex-shrink: 0;
-    background: var(--orange-pale);
-    border-radius: var(--radius-sm);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-  }
-  .feature-item h4 {
-    font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700;
-    color: var(--ink); margin-bottom: 0.4rem;
-  }
-  .feature-item p { font-size: 0.93rem; color: var(--ink-mid); line-height: 1.65; }
+  .features { background: var(--surface); }
+  .features-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 5rem; margin-top: 3.5rem; }
+  .feat-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .feat-icon { width: 46px; height: 46px; flex-shrink:0; border-radius:var(--radius-sm); background:var(--orange-pale); display:flex; align-items:center; justify-content:center; font-size:1.25rem; }
+  .feat-item h4 { font-family:var(--font-display); font-size:1.03rem; font-weight:700; color:var(--ink); margin-bottom:0.4rem; }
+  .feat-item p { font-size:0.92rem; color:var(--ink-mid); line-height:1.65; }
 
-  /* ───── TESTIMONIALS ───── */
-  .testimonials { background: var(--ink); }
-  .testimonials .section-label { color: var(--orange-light); }
-  .testimonials .section-title { color: var(--white); max-width: 100%; }
-  .testi-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-    margin-top: 3.5rem;
+  /* ───── COUNTDOWN + HYPE ───── */
+  .hype { background: var(--orange); padding: 90px 5vw; text-align: center; }
+  .hype h2 {
+    font-family: var(--font-display);
+    font-weight: 800; font-size: clamp(2rem, 4.5vw, 3.6rem);
+    color: var(--white); letter-spacing: -1.2px; line-height: 1.1;
+    max-width: 700px; margin: 0 auto 1rem;
   }
-  .testi-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    transition: transform var(--transition), background var(--transition);
+  .hype p { font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 500px; margin: 0 auto 3rem; line-height: 1.7; }
+  .countdown-row { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .cd-unit {
+    background: rgba(255,255,255,0.15); border-radius: var(--radius-md);
+    padding: 1.2rem 1.8rem; min-width: 90px;
+    backdrop-filter: blur(8px);
   }
-  .testi-card:hover {
-    transform: translateY(-4px);
-    background: rgba(255,255,255,0.08);
+  .cd-num { font-family: var(--font-display); font-size: 2.8rem; font-weight: 800; color: var(--white); line-height: 1; display: block; }
+  .cd-label { font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.7); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; display: block; }
+  .hype-cta {
+    background: var(--white); color: var(--orange);
+    padding: 0.9rem 2.6rem; border-radius: 100px;
+    font-size: 1rem; font-weight: 700; letter-spacing: -0.2px;
+    display: inline-block;
+    transition: transform var(--transition), box-shadow var(--transition);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
   }
-  .testi-stars { color: var(--orange); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 1rem; }
-  .testi-quote {
-    font-size: 0.97rem; color: rgba(255,255,255,0.8); line-height: 1.7;
-    font-style: italic; margin-bottom: 1.5rem;
-  }
-  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
-  .testi-avatar {
-    width: 42px; height: 42px; border-radius: 50%;
-    background: var(--orange-pale);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; font-weight: 700; color: var(--orange);
-    flex-shrink: 0;
-  }
-  .testi-name { font-weight: 600; color: var(--white); font-size: 0.9rem; }
-  .testi-role { font-size: 0.8rem; color: rgba(255,255,255,0.45); }
+  .hype-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,0.2); }
 
   /* ───── STATS ───── */
-  .stats { background: var(--orange); padding: 80px 5vw; }
-  .stats-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center;
+  .stats { background: var(--white); padding: 80px 5vw; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+  .stat-number { font-family: var(--font-display); font-size: clamp(2.4rem, 4vw, 3.8rem); font-weight: 800; color: var(--orange); line-height: 1; }
+  .stat-unit { font-size: 0.65em; vertical-align: super; }
+  .stat-label { margin-top: 0.5rem; font-size: 0.9rem; color: var(--ink-mid); font-weight: 500; }
+
+  /* ───── TESTIMONIALS ───── */
+  .testimonials { background: var(--ink); padding: 100px 5vw; }
+  .testimonials .section-eyebrow { color: var(--orange-light); }
+  .testimonials .section-title { color: var(--white); max-width: 100%; }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+  .testi-card {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius-lg); padding: 2rem;
+    transition: transform var(--transition), background var(--transition);
   }
-  .stat-item {}
-  .stat-number {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.5rem, 4vw, 3.8rem);
-    font-weight: 800; color: var(--white);
-    line-height: 1;
-  }
-  .stat-unit { font-size: 0.7em; vertical-align: super; }
-  .stat-label {
-    margin-top: 0.5rem;
-    font-size: 0.92rem; color: rgba(255,255,255,0.75); font-weight: 500;
-  }
+  .testi-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.08); }
+  .testi-stars { color: var(--orange); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1rem; }
+  .testi-quote { font-size: 0.95rem; color: rgba(255,255,255,0.78); line-height: 1.72; font-style: italic; margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--orange-pale); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; color: var(--orange); flex-shrink: 0; }
+  .testi-name { font-weight: 600; color: var(--white); font-size: 0.88rem; }
+  .testi-role { font-size: 0.78rem; color: rgba(255,255,255,0.4); }
 
   /* ───── FAQ ───── */
   .faq { background: var(--surface); }
-  .faq-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
-    margin-top: 3.5rem; align-items: start;
-  }
-  .faq-list { display: flex; flex-direction: column; gap: 1rem; }
-  .faq-item {
-    background: var(--white);
-    border-radius: var(--radius-md);
-    border: 1.5px solid rgba(26,26,46,0.07);
-    overflow: hidden;
-    transition: border-color var(--transition);
-  }
-  .faq-item:has(.faq-body.open) { border-color: var(--orange); }
-  .faq-q {
-    width: 100%; text-align: left; background: none;
-    padding: 1.2rem 1.4rem;
-    font-size: 0.97rem; font-weight: 600; color: var(--ink);
-    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-  }
-  .faq-arrow {
-    width: 24px; height: 24px; flex-shrink: 0;
-    background: var(--orange-pale); color: var(--orange);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 0.9rem; font-weight: 700;
-    transition: transform var(--transition), background var(--transition);
-  }
-  .faq-body {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
-    padding: 0 1.4rem;
-    font-size: 0.92rem; color: var(--ink-mid); line-height: 1.7;
-  }
-  .faq-body.open { max-height: 300px; padding: 0 1.4rem 1.2rem; }
-  .faq-body.open + button .faq-arrow, .faq-item.open .faq-arrow { transform: rotate(45deg); background: var(--orange); color: var(--white); }
+  .faq-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; margin-top: 3.5rem; align-items: start; }
+  .faq-list { display: flex; flex-direction: column; gap: 0.9rem; }
+  .faq-item { background: var(--white); border-radius: var(--radius-md); border: 1.5px solid rgba(26,26,46,0.07); overflow: hidden; transition: border-color var(--transition); }
+  .faq-q { width: 100%; text-align: left; background: none; padding: 1.2rem 1.4rem; font-size: 0.96rem; font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; align-items: center; gap: 1rem; letter-spacing: -0.1px; }
+  .faq-arrow { width: 24px; height: 24px; flex-shrink: 0; background: var(--orange-pale); color: var(--orange); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 700; transition: transform var(--transition), background var(--transition); }
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease; padding: 0 1.4rem; font-size: 0.92rem; color: var(--ink-mid); line-height: 1.72; }
+  .faq-body.open { max-height: 300px; padding: 0 1.4rem 1.3rem; }
 
-  .faq-cta-box {
+  .faq-box {
     background: linear-gradient(135deg, var(--ink), #2d2d4a);
-    border-radius: var(--radius-lg);
-    padding: 2.8rem 2.4rem;
-    display: flex; flex-direction: column; gap: 1.4rem;
+    border-radius: var(--radius-lg); padding: 2.8rem 2.4rem;
   }
-  .faq-cta-box h3 {
-    font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800;
-    color: var(--white); line-height: 1.25;
-  }
-  .faq-cta-box p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+  .faq-box h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--white); line-height: 1.25; margin-bottom: 0.9rem; }
+  .faq-box p { font-size: 0.94rem; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 1.6rem; }
+  .faq-box-note { font-size: 0.78rem; color: rgba(255,255,255,0.35); margin-top: 0.8rem; }
 
   /* ───── WAITLIST ───── */
-  .waitlist {
-    background: var(--white);
-    display: flex; align-items: center; justify-content: center;
-    text-align: center; flex-direction: column;
-  }
-  .waitlist-box {
-    max-width: 640px; width: 100%;
-  }
+  .waitlist { background: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .waitlist-box { max-width: 660px; width: 100%; }
   .waitlist-box .section-title { max-width: 100%; }
-  .waitlist-form {
-    margin-top: 2.5rem;
-    display: flex; flex-direction: column; gap: 1rem;
-  }
+  .waitlist-form { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
   .form-row { display: flex; gap: 1rem; }
   .form-field { flex: 1; }
-  .form-label {
-    display: block; font-size: 0.82rem; font-weight: 600;
-    color: var(--ink); margin-bottom: 0.4rem; text-align: left;
-  }
+  .form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; text-align: left; letter-spacing: -0.1px; }
   .form-input, .form-select {
-    width: 100%; padding: 0.8rem 1.1rem;
-    border: 1.5px solid rgba(26,26,46,0.13);
-    border-radius: var(--radius-sm);
-    font-family: inherit; font-size: 0.95rem; color: var(--ink);
-    background: var(--white);
-    transition: border-color var(--transition), box-shadow var(--transition);
-    outline: none;
-    appearance: none;
+    width: 100%; padding: 0.82rem 1.1rem;
+    border: 1.5px solid rgba(26,26,46,0.12); border-radius: var(--radius-sm);
+    font-family: var(--font); font-size: 0.95rem; color: var(--ink); background: var(--white);
+    transition: border-color var(--transition), box-shadow var(--transition); outline: none; appearance: none;
   }
-  .form-input:focus, .form-select:focus {
-    border-color: var(--orange);
-    box-shadow: 0 0 0 3px rgba(255,115,0,0.12);
-  }
+  .form-input:focus, .form-select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(255,115,0,0.11); }
   .form-input::placeholder { color: var(--ink-soft); }
-  .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%237A7A92' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.8rem center; padding-right: 2.5rem; }
+  .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'%3E%3Cpath fill='%237A7A92' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.9rem center; padding-right: 2.5rem; }
   .form-submit {
-    background: var(--orange); color: var(--white);
-    width: 100%; padding: 1rem;
-    border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600;
-    box-shadow: var(--shadow-btn);
-    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    background: var(--orange); color: var(--white); width: 100%; padding: 1.05rem;
+    border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600; letter-spacing: -0.2px;
+    box-shadow: var(--shadow-btn); transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
   }
-  .form-submit:hover {
-    background: var(--orange-light);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 36px rgba(255,115,0,0.45);
-  }
-  .waitlist-note {
-    margin-top: 0.9rem; font-size: 0.82rem; color: var(--ink-soft);
-    display: flex; align-items: center; justify-content: center; gap: 0.4rem;
-  }
-  .success-msg {
-    display: none;
-    background: #E8F8EE; border: 1.5px solid #82d9a6;
-    border-radius: var(--radius-md);
-    padding: 1.5rem; text-align: center;
-    color: #1A9F4B; font-weight: 600; font-size: 1rem;
-    margin-top: 1.5rem;
-  }
+  .form-submit:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,115,0,0.48); }
+  .waitlist-note { margin-top: 0.9rem; font-size: 0.8rem; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+  .success-msg { display: none; background: #E8F8EE; border: 1.5px solid #82d9a6; border-radius: var(--radius-md); padding: 1.6rem; color: #1A9F4B; font-weight: 600; font-size: 1rem; margin-top: 1.5rem; }
   .success-msg.visible { display: block; animation: fadeUp 0.4s ease; }
 
   /* ───── FOOTER ───── */
-  footer {
-    background: var(--ink); padding: 60px 5vw 36px;
-    color: rgba(255,255,255,0.55);
-  }
-  .footer-inner {
-    display: grid; grid-template-columns: 1.8fr repeat(3, 1fr); gap: 3rem;
-    margin-bottom: 3rem;
-  }
-  .footer-brand .nav-logo { margin-bottom: 0.8rem; display: block; }
-  .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 240px; }
-  .footer-col h5 {
-    font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
-    color: var(--white); letter-spacing: 0.05em; text-transform: uppercase;
-    margin-bottom: 1rem;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
-  .footer-col a { font-size: 0.88rem; transition: color var(--transition); }
+  footer { background: var(--ink); padding: 60px 5vw 36px; color: rgba(255,255,255,0.5); }
+  .footer-inner { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 3rem; margin-bottom: 3rem; }
+  .footer-logo { margin-bottom: 0.9rem; }
+  .footer-logo svg { height: 24px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+  .footer-brand p { font-size: 0.87rem; line-height: 1.65; max-width: 240px; }
+  .footer-col h5 { font-family: var(--font-display); font-size: 0.82rem; font-weight: 700; color: var(--white); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.87rem; transition: color var(--transition); }
   .footer-col a:hover { color: var(--orange-light); }
-  .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding-top: 1.5rem;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
-    font-size: 0.82rem;
-  }
-  .footer-bottom a { transition: color var(--transition); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; }
   .footer-bottom a:hover { color: var(--white); }
 
   /* ───── SCROLL REVEAL ───── */
-  .reveal {
-    opacity: 0; transform: translateY(28px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
-  }
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: none; }
-  .reveal-stagger > * {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
-  .reveal-stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
-  .reveal-stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.1s; }
-  .reveal-stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.2s; }
-  .reveal-stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.3s; }
-
-  /* ───── MOBILE NAV ───── */
-  .mobile-nav {
-    display: none; flex-direction: column;
-    position: fixed; top: 68px; left: 0; right: 0; z-index: 99;
-    background: var(--white);
-    padding: 1.5rem 5vw;
-    border-bottom: 1px solid rgba(26,26,46,0.08);
-    box-shadow: 0 8px 32px rgba(26,26,46,0.1);
-    gap: 1rem;
-  }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a {
-    font-size: 1rem; font-weight: 500; color: var(--ink-mid);
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(26,26,46,0.06);
-  }
-  .mobile-nav a:last-child { border-bottom: none; }
+  .reveal-stagger > * { opacity: 0; transform: translateY(22px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay:0s; }
+  .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.1s; }
+  .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.2s; }
+  .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.3s; }
 
   /* ───── RESPONSIVE ───── */
-  @media (max-width: 900px) {
+  @media (max-width: 960px) {
     .nav-links { display: none; }
     .nav-burger { display: flex; }
-    .personas-grid { grid-template-columns: 1fr 1fr; }
+    .persona-hero-card { grid-template-columns: 1fr; padding: 2.5rem; }
+    .phc-visual { display: none; }
+    .personas-layout { grid-template-columns: 1fr; }
+    .pain-grid { grid-template-columns: 1fr; }
     .testi-grid { grid-template-columns: 1fr 1fr; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .features-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .features-inner { grid-template-columns: 1fr; gap: 2rem; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
-    .faq-grid { grid-template-columns: 1fr; }
-    .screen-body { grid-template-columns: 180px 1fr; }
+    .faq-layout { grid-template-columns: 1fr; }
     .float-chip { display: none; }
   }
-  @media (max-width: 640px) {
-    .personas-grid { grid-template-columns: 1fr; }
+  @media (max-width: 600px) {
     .testi-grid { grid-template-columns: 1fr; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
     .form-row { flex-direction: column; }
-    .mock-card-grid { grid-template-columns: 1fr 1fr; }
-    .screen-body { grid-template-columns: 1fr; }
-    .screen-sidebar { display: none; }
-    .tab-group { flex-wrap: wrap; }
     section { padding: 70px 5vw; }
-    .hero-headline .highlight::after { display: none; }
+    .countdown-row { gap: 0.8rem; }
+    .cd-unit { min-width: 70px; padding: 1rem 1.2rem; }
+    .cd-num { font-size: 2.2rem; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     *, .float-chip { animation: none !important; transition-duration: 0.01ms !important; }
     .reveal, .reveal-stagger > * { opacity: 1 !important; transform: none !important; }
@@ -730,69 +488,79 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">Profolio<span>o</span></a>
+  <a href="#" class="nav-logo">
+    <svg width="1008" height="285" viewBox="0 0 1008 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 274.779L11.2954 272.121C14.84 271.136 17.5969 268.97 19.5662 265.622C21.5354 262.274 23.2092 256.957 24.5877 249.671L49.9908 107.001C50.3846 104.244 50.7785 101.487 51.1723 98.7298C51.5662 95.9728 51.7631 93.7082 51.7631 91.9359C51.7631 85.4375 49.7938 81.0067 45.8554 78.6436L46.1508 75.9852L98.1385 69.4867L90.1631 113.204C95.2831 98.6313 101.782 87.5052 109.658 79.8252C117.535 71.9482 126.298 68.0098 135.948 68.0098C143.431 68.0098 149.929 70.2744 155.443 74.8036C160.957 79.1359 165.289 85.339 168.44 93.4128C171.591 101.487 173.166 111.037 173.166 122.065C173.166 136.637 171.098 150.324 166.963 163.124C163.025 175.924 157.511 187.148 150.422 196.797C143.332 206.447 135.062 214.028 125.609 219.542C116.354 224.859 106.409 227.517 95.7754 227.517C91.2462 227.517 86.6185 226.73 81.8923 225.154C77.1662 223.579 73.1292 221.413 69.7815 218.656L65.9415 244.059C65.3508 247.801 65.0554 251.05 65.0554 253.807C65.0554 258.73 66.1385 262.57 68.3046 265.327C70.4708 268.281 74.0154 270.545 78.9385 272.121L78.6431 274.779H11ZM94.0031 221.019C97.3508 221.019 100.698 219.05 104.046 215.111C107.394 211.173 110.545 205.856 113.498 199.161C116.452 192.268 119.111 184.49 121.474 175.825C123.837 166.964 125.609 157.61 126.791 147.764C128.169 137.721 128.858 127.677 128.858 117.634C128.858 108.576 127.677 101.684 125.314 96.9575C123.148 92.0344 120.095 89.5728 116.157 89.5728C112.809 89.5728 109.363 91.6405 105.818 95.7759C102.471 99.9113 99.2215 105.425 96.0708 112.317C92.92 119.21 90.1631 127.087 87.8 135.948C85.4369 144.613 83.4677 153.77 81.8923 163.419C80.5138 172.871 79.8246 182.127 79.8246 191.185C79.8246 200.637 81.0062 208.022 83.3692 213.339C85.7323 218.459 89.2769 221.019 94.0031 221.019Z" fill="#1A1A2E"/>
+      <path d="M175.324 224.564L194.228 107.001C194.819 103.653 195.213 100.699 195.41 98.139C195.804 95.579 196.001 93.3144 196.001 91.3451C196.001 87.8005 195.508 85.1421 194.524 83.3698C193.736 81.4005 192.358 79.8252 190.388 78.6436L190.684 75.9852L243.262 69.4867L235.582 116.748C240.505 100.797 245.822 88.9821 251.533 81.3021C257.244 73.4252 263.152 69.4867 269.256 69.4867C272.801 69.4867 275.656 70.5698 277.822 72.7359C280.185 74.9021 281.367 77.659 281.367 81.0067C281.367 84.7482 280.185 87.8005 277.822 90.1636C275.656 92.3298 272.702 93.4128 268.961 93.4128C267.976 93.4128 266.992 93.4128 266.007 93.4128C265.022 93.2159 263.841 93.1175 262.462 93.1175C254.979 93.1175 248.973 97.6467 244.444 106.705C240.112 115.567 235.582 128.957 230.856 146.877L218.45 224.564H175.324Z" fill="#1A1A2E"/>
+      <path d="M325.864 227.517C314.048 227.517 303.71 224.761 294.848 219.247C286.184 213.536 279.39 205.561 274.467 195.321C269.544 185.081 267.082 173.265 267.082 159.874C267.082 146.877 269.052 134.865 272.99 123.837C276.928 112.613 282.344 102.865 289.236 94.5944C296.325 86.1267 304.498 79.6282 313.753 75.099C323.205 70.3728 333.445 68.0098 344.473 68.0098C356.288 68.0098 366.528 70.8651 375.193 76.5759C384.055 82.0898 390.947 89.9667 395.87 100.207C400.793 110.447 403.255 122.262 403.255 135.653C403.255 148.65 401.285 160.761 397.347 171.985C393.408 183.013 387.895 192.761 380.805 201.228C373.913 209.499 365.741 215.997 356.288 220.724C347.033 225.253 336.892 227.517 325.864 227.517ZM325.864 221.314C329.408 221.314 332.756 219.247 335.907 215.111C339.255 210.976 342.307 205.265 345.064 197.979C347.821 190.693 350.184 182.324 352.153 172.871C354.319 163.419 355.993 153.474 357.175 143.037C358.356 132.404 358.947 121.77 358.947 111.136C358.947 86.5205 354.122 74.2129 344.473 74.2129C340.928 74.2129 337.482 76.2805 334.135 80.4159C330.984 84.5513 328.03 90.2621 325.273 97.5482C322.516 104.834 320.055 113.204 317.888 122.656C315.919 132.108 314.344 142.151 313.162 152.785C311.981 163.222 311.39 173.757 311.39 184.391C311.39 209.007 316.215 221.314 325.864 221.314Z" fill="#1A1A2E"/>
+      <path d="M448.317 224.563V109.954H419.664V75.6892H448.317V62.3969C448.317 31.3815 470.471 11 504.144 11H531.911V45.2646H509.461C497.646 45.2646 489.671 52.9446 489.671 64.76V75.6892H531.911V109.954H489.671V224.563H448.317Z" fill="#FF7300"/>
+      <path d="M611.987 226.926C566.203 226.926 533.415 194.434 533.415 150.126C533.415 105.818 566.203 73.3262 611.987 73.3262C657.772 73.3262 690.56 105.818 690.56 150.126C690.56 194.434 657.772 226.926 611.987 226.926ZM611.987 191.48C634.141 191.48 649.206 174.643 649.206 150.126C649.206 125.314 634.141 108.477 611.987 108.477C589.834 108.477 574.769 125.314 574.769 150.126C574.769 174.643 589.834 191.48 611.987 191.48Z" fill="#FF7300"/>
+      <path d="M711.301 224.563V11H752.36V224.563H711.301Z" fill="#FF7300"/>
+      <path d="M781.397 224.563V75.6892H822.456V224.563H781.397ZM780.216 11H823.933V54.4215H780.216V11Z" fill="#FF7300"/>
+      <path d="M917.646 150.717C871.926 150.717 839.184 181.959 839.184 224.563H880.48C880.48 200.705 895.523 184.516 917.646 184.516C939.768 184.516 954.812 200.705 954.812 224.563H996.107C996.107 181.959 963.366 150.717 917.646 150.717Z" fill="#FF7300"/>
+      <path d="M918.532 132.256C964.252 132.256 996.994 101.013 996.994 58.4097H955.698C955.698 82.2677 940.655 98.457 918.532 98.457C896.41 98.457 881.366 82.2677 881.366 58.4097H840.071C840.071 101.013 872.812 132.256 918.532 132.256Z" fill="#FF7300"/>
+    </svg>
+  </a>
   <ul class="nav-links">
-    <li><a href="#personas">Who it's for</a></li>
-    <li><a href="#screenshots">Product</a></li>
-    <li><a href="#testimonials">Stories</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#waitlist" class="nav-cta">Join Waitlist</a></li>
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#personas">Who It's For</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#testimonials">Early Voices</a></li>
+    <li><a href="#waitlist" class="nav-cta">Get Early Access</a></li>
   </ul>
   <button class="nav-burger" id="burgerBtn" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- MOBILE NAV -->
 <div class="mobile-nav" id="mobileNav">
-  <a href="#personas" onclick="closeMobileNav()">Who it's for</a>
-  <a href="#screenshots" onclick="closeMobileNav()">Product</a>
-  <a href="#testimonials" onclick="closeMobileNav()">Stories</a>
-  <a href="#faq" onclick="closeMobileNav()">FAQ</a>
-  <a href="#waitlist" onclick="closeMobileNav()" style="color:var(--orange);font-weight:600;">Join Waitlist →</a>
+  <a href="#problem" onclick="closeMobileNav()">The Problem</a>
+  <a href="#personas" onclick="closeMobileNav()">Who It's For</a>
+  <a href="#features" onclick="closeMobileNav()">Features</a>
+  <a href="#testimonials" onclick="closeMobileNav()">Early Voices</a>
+  <a href="#waitlist" onclick="closeMobileNav()" style="color:var(--orange);font-weight:700;">Get Early Access →</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-floats">
-    <div class="float-chip fc1"><span class="chip-icon">📁</span> 47 portfolios shared</div>
-    <div class="float-chip fc2"><span class="chip-icon">🏆</span> 98% teacher approval</div>
-    <div class="float-chip fc3"><span class="chip-icon">🎓</span> 12 schools onboarded</div>
-    <div class="float-chip fc4"><span class="chip-icon">⭐</span> 4.9 / 5 rating</div>
+    <div class="float-chip fc1">📋 28 submissions tracked</div>
+    <div class="float-chip fc2">⭐ 98% teacher satisfaction</div>
+    <div class="float-chip fc3">🏫 12 schools on waitlist</div>
+    <div class="float-chip fc4">🚀 Launching 2025</div>
   </div>
 
-  <div class="hero-badge">
-    <span class="hero-badge-dot"></span>
-    Now in Early Access — Limited spots
+  <div class="coming-soon-pill">
+    <span class="cs-dot"></span>
+    Something big is coming for education
   </div>
 
   <h1 class="hero-headline">
-    The portfolio platform<br>built for
-    <span class="highlight">
-      <span class="hero-persona-wrap"><span id="persona-text"></span></span>
-    </span>
+    The portfolio platform<br>
+  
+    have been waiting for.
   </h1>
 
   <p class="hero-sub">
-    Profolioo helps students showcase their best work, teachers track real growth, and schools celebrate learning — all in one beautifully simple place.
+    Profolioo is a new way for teachers and schools to track student growth, celebrate real learning, and finally ditch the paperwork — all in one beautifully simple platform.
   </p>
 
   <div class="hero-actions">
-    <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
-    <a href="#screenshots" class="btn-secondary">See how it works →</a>
+    <a href="#waitlist" class="btn-primary">Claim Your Early Access</a>
+    <a href="#problem" class="btn-ghost">See Why It Matters →</a>
   </div>
 
-  <div class="hero-social-proof">
+  <div class="hero-proof">
     <div class="hero-avatars">
-      <span>JM</span><span>AT</span><span>RK</span><span>PS</span><span>+</span>
+      <span>MT</span><span>AK</span><span>SR</span><span>JP</span><span>+</span>
     </div>
-    <span>Joined by 1,200+ educators &amp; students in early access</span>
+    <span>1,200+ educators &amp; schools already on the waitlist</span>
   </div>
 </section>
 
-<!-- LOGOS -->
+<!-- <!-- LOGOS -->
 <div class="logos-strip">
-  <p>Trusted by educators at</p>
+  <p>Educators waiting from</p>
   <div class="logos-track">
     <div class="logo-pill">Greenwood Academy</div>
     <div class="logo-pill">Sunrise High</div>
@@ -801,185 +569,104 @@
     <div class="logo-pill">Brightfield School</div>
     <div class="logo-pill">Crestwood College</div>
   </div>
+</div> -->
+
+<!-- <!-- PROBLEM / HOOK -->
+<div class="problem" id="problem">
+  <div class="problem-inner reveal">
+    <div class="problem-eyebrow">The problem we're solving</div>
+    <h2 class="problem-title">Teachers are drowning in admin.<br><span>Students are invisible.</span></h2>
+    <p class="problem-sub">Between chasing submissions in email threads, reconciling Drive folders nobody can find, and writing progress reports with no real data — educators are spending time on everything except teaching.</p>
+  </div>
+  <div class="pain-grid reveal-stagger">
+    <div class="pain-card">
+      <div class="pain-icon">📂</div>
+      <h4>The Folder Chaos</h4>
+      <p>Student work scattered across email, WhatsApp, Google Drive, and printed handouts — with no organised record of who submitted what.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔍</div>
+      <h4>Invisible Progress</h4>
+      <p>No easy way to see a student's growth over time. Progress reports are based on gut feel, not an actual record of what was made and learned.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">⏳</div>
+      <h4>Hours Lost Every Week</h4>
+      <p>Teachers spend 4–6 hours per week on portfolio admin that could be automated — time stolen from lesson prep, feedback, and students.</p>
+    </div>
+  </div>
 </div>
 
 <!-- PERSONAS -->
 <section class="personas" id="personas">
   <div class="reveal">
-    <div class="section-label">Who it's for</div>
-    <h2 class="section-title">One platform, every role in the classroom</h2>
-    <p class="section-sub">Profolioo adapts to how you actually work — whether you're sharing work, reviewing growth, or running an entire institution.</p>
+    <div class="section-eyebrow">Who Profolioo is built for</div>
+    <h2 class="section-title">Designed around the people who run schools</h2>
+    <p class="section-sub">Teachers and school leaders are at the centre of Profolioo. Everything is built to reduce their load, not add to it.</p>
   </div>
 
-  <div class="personas-grid reveal-stagger">
+  <div class="personas-layout reveal-stagger">
+    <!-- TEACHER — primary, full-width hero card -->
+    <div class="persona-hero-card">
+      <div>
+        <div class="phc-label">🎯 Primary Focus — Teachers</div>
+        <h3>Finally, a dashboard<br>that <span>works the way<br>you think.</span></h3>
+        <p>Every student, every submission, every piece of feedback — in one place. No more chasing work, no more losing context. Just the clarity you need to teach well.</p>
+        <ul class="phc-features">
+          <li>Class dashboard with live portfolio views at a glance</li>
+          <li>Leave rich inline feedback: text, audio, or video notes</li>
+          <li>Standards-aligned tracking without extra data entry</li>
+          <li>Automated deadline nudges so you stop being the reminder</li>
+          <li>One-click progress reports, ready for parent meetings</li>
+          <li>Connects to Google Classroom, Canvas &amp; Schoology</li>
+        </ul>
+      </div>
+      <div class="phc-visual">
+        <div class="phc-vis-title">Biology 11B — Live Overview</div>
+        <div class="phc-stat-row">
+          <div class="phc-stat"><span class="sv">28</span><span class="sl">Students</span></div>
+          <div class="phc-stat"><span class="sv">24</span><span class="sl">Submitted</span></div>
+          <div class="phc-stat"><span class="sv">91%</span><span class="sl">On Time</span></div>
+        </div>
+        <table class="phc-mini-table">
+          <thead><tr><th>Student</th><th>Assignment</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Aisha Tran</td><td>Cell Division Essay</td><td><span class="mbadge mb-g">Reviewed</span></td></tr>
+            <tr><td>Marcus Liu</td><td>Lab Report #4</td><td><span class="mbadge mb-o">Pending</span></td></tr>
+            <tr><td>Priya Singh</td><td>Research Project</td><td><span class="mbadge mb-g">Reviewed</span></td></tr>
+            <tr><td>Jake Reynolds</td><td>Lab Report #4</td><td><span class="mbadge mb-o">Pending</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SCHOOL CARD -->
     <div class="persona-card">
-      <div class="persona-icon">🎓</div>
+      <div class="p-icon">🏫</div>
+      <h3>For School Leaders</h3>
+      <p>Get the school-wide visibility you need to lead with confidence — from department performance to individual student journeys.</p>
+      <ul class="p-features">
+        <li>School-wide portfolio analytics by class &amp; department</li>
+        <li>Standards compliance tracking across year groups</li>
+        <li>Parent portal with automatic progress updates</li>
+        <li>Custom school branding &amp; subdomain</li>
+        <li>FERPA-compliant data — you own everything</li>
+        <li>District-level rollup reporting</li>
+      </ul>
+    </div>
+
+    <!-- STUDENT CARD — secondary, smaller role -->
+    <div class="persona-card">
+      <div class="p-icon">🎓</div>
       <h3>For Students</h3>
-      <p>Build a living record of your academic journey. Upload projects, reflect on your growth, and share polished portfolios with anyone — colleges, employers, or just your family.</p>
-      <ul class="persona-features">
-        <li>Drag-and-drop portfolio builder</li>
-        <li>Multimedia project uploads (video, PDF, images)</li>
-        <li>Personal reflection journals</li>
-        <li>One-click sharing with privacy controls</li>
-        <li>College-ready export in seconds</li>
+      <p>A simple, clean place to collect and present your best work — set up by your teacher, used by you.</p>
+      <ul class="p-features">
+        <li>Upload projects, essays, videos, and artwork</li>
+        <li>See teacher feedback directly on your work</li>
+        <li>Build a shareable portfolio link for college applications</li>
+        <li>Track your own growth over the school year</li>
       </ul>
-    </div>
-
-    <div class="persona-card">
-      <div class="persona-icon">📚</div>
-      <h3>For Teachers</h3>
-      <p>Move beyond spreadsheets. See every student's work in one place, leave rich feedback, and track progress over an entire semester without the admin burden.</p>
-      <ul class="persona-features">
-        <li>Class dashboard with live portfolio views</li>
-        <li>Rubric-based feedback &amp; annotation tools</li>
-        <li>Progress tracking across assignments</li>
-        <li>Automatic deadline reminders for students</li>
-        <li>Grade integration with LMS platforms</li>
-      </ul>
-    </div>
-
-    <div class="persona-card">
-      <div class="persona-icon">🏫</div>
-      <h3>For Schools</h3>
-      <p>Give every student a digital showcase that represents your institution's values. Manage curriculum standards, report to parents, and build a culture of achievement.</p>
-      <ul class="persona-features">
-        <li>School-wide portfolio analytics</li>
-        <li>Standards alignment &amp; compliance tracking</li>
-        <li>Parent access portal with updates</li>
-        <li>Custom branding &amp; domain</li>
-        <li>FERPA-compliant data management</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SCREENSHOTS -->
-<section class="screenshots" id="screenshots">
-  <div class="screenshots-header reveal">
-    <div>
-      <div class="section-label">Product Tour</div>
-      <h2 class="section-title">Everything you need, nothing you don't</h2>
-    </div>
-  </div>
-
-  <div class="tab-group reveal">
-    <button class="tab-btn active" onclick="switchTab('student')">Student View</button>
-    <button class="tab-btn" onclick="switchTab('teacher')">Teacher Dashboard</button>
-    <button class="tab-btn" onclick="switchTab('school')">School Analytics</button>
-  </div>
-
-  <div class="screenshot-stage reveal">
-    <!-- Student Tab -->
-    <div class="screenshot-panel active" id="tab-student">
-      <div class="screen-topbar">
-        <div class="screen-dots"><span class="sd1"></span><span class="sd2"></span><span class="sd3"></span></div>
-        <div class="screen-url">app.profolioo.com / my-portfolio</div>
-      </div>
-      <div class="screen-body">
-        <div class="screen-sidebar">
-          <div class="screen-sidebar-item active-item">📁 My Portfolio</div>
-          <div class="screen-sidebar-item">📝 Reflections</div>
-          <div class="screen-sidebar-item">🏆 Achievements</div>
-          <div class="screen-sidebar-item">📤 Share</div>
-          <div class="screen-sidebar-item">⚙️ Settings</div>
-        </div>
-        <div class="screen-content">
-          <h4>My Portfolio — Spring 2025</h4>
-          <div class="mock-card-grid">
-            <div class="mock-card">
-              <div class="mock-card-img">📊</div>
-              <div class="mock-card-body">
-                <div class="mock-title">Data Science Project</div>
-                <div class="mock-meta">Math · Submitted Apr 12</div>
-              </div>
-            </div>
-            <div class="mock-card">
-              <div class="mock-card-img">🎨</div>
-              <div class="mock-card-body">
-                <div class="mock-title">Digital Art Portfolio</div>
-                <div class="mock-meta">Arts · Submitted Mar 28</div>
-              </div>
-            </div>
-            <div class="mock-card">
-              <div class="mock-card-img">✍️</div>
-              <div class="mock-card-body">
-                <div class="mock-title">Essay: Climate Policy</div>
-                <div class="mock-meta">English · Submitted Apr 3</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Teacher Tab -->
-    <div class="screenshot-panel" id="tab-teacher">
-      <div class="screen-topbar">
-        <div class="screen-dots"><span class="sd1"></span><span class="sd2"></span><span class="sd3"></span></div>
-        <div class="screen-url">app.profolioo.com / class / biology-11b</div>
-      </div>
-      <div class="screen-body">
-        <div class="screen-sidebar">
-          <div class="screen-sidebar-item active-item">🏠 Dashboard</div>
-          <div class="screen-sidebar-item">👥 Students</div>
-          <div class="screen-sidebar-item">📋 Assignments</div>
-          <div class="screen-sidebar-item">💬 Feedback</div>
-          <div class="screen-sidebar-item">📊 Reports</div>
-        </div>
-        <div class="screen-content">
-          <h4>Biology 11B — Submission Overview</h4>
-          <div class="mock-stat-row">
-            <div class="mock-stat"><div class="stat-val">28</div><div class="stat-label">Total Students</div></div>
-            <div class="mock-stat"><div class="stat-val">24</div><div class="stat-label">Submitted</div></div>
-            <div class="mock-stat"><div class="stat-val">4</div><div class="stat-label">Pending</div></div>
-            <div class="mock-stat"><div class="stat-val">91%</div><div class="stat-label">On Time</div></div>
-          </div>
-          <table class="mock-table">
-            <thead><tr><th>Student</th><th>Assignment</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Aisha Tran</td><td>Cell Division Essay</td><td><span class="mock-badge mb-green">Reviewed</span></td></tr>
-              <tr><td>Marcus Liu</td><td>Lab Report #4</td><td><span class="mock-badge mb-orange">Pending Review</span></td></tr>
-              <tr><td>Priya Singh</td><td>Cell Division Essay</td><td><span class="mock-badge mb-green">Reviewed</span></td></tr>
-              <tr><td>Jake Reynolds</td><td>Lab Report #4</td><td><span class="mock-badge mb-gray">Not Submitted</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- School Tab -->
-    <div class="screenshot-panel" id="tab-school">
-      <div class="screen-topbar">
-        <div class="screen-dots"><span class="sd1"></span><span class="sd2"></span><span class="sd3"></span></div>
-        <div class="screen-url">app.profolioo.com / admin / analytics</div>
-      </div>
-      <div class="screen-body">
-        <div class="screen-sidebar">
-          <div class="screen-sidebar-item active-item">📊 Analytics</div>
-          <div class="screen-sidebar-item">🏫 Departments</div>
-          <div class="screen-sidebar-item">👨‍🏫 Teachers</div>
-          <div class="screen-sidebar-item">🎯 Standards</div>
-          <div class="screen-sidebar-item">📣 Parent Portal</div>
-        </div>
-        <div class="screen-content">
-          <h4>School-Wide Portfolio Activity</h4>
-          <div class="mock-stat-row">
-            <div class="mock-stat"><div class="stat-val">412</div><div class="stat-label">Active Students</div></div>
-            <div class="mock-stat"><div class="stat-val">38</div><div class="stat-label">Teachers</div></div>
-            <div class="mock-stat"><div class="stat-val">1.4k</div><div class="stat-label">Portfolios</div></div>
-            <div class="mock-stat"><div class="stat-val">96%</div><div class="stat-label">Engagement</div></div>
-          </div>
-          <table class="mock-table">
-            <thead><tr><th>Department</th><th>Portfolios</th><th>Avg. Score</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Science</td><td>218</td><td>87 / 100</td><td><span class="mock-badge mb-green">On Track</span></td></tr>
-              <tr><td>English</td><td>196</td><td>91 / 100</td><td><span class="mock-badge mb-green">On Track</span></td></tr>
-              <tr><td>Mathematics</td><td>204</td><td>79 / 100</td><td><span class="mock-badge mb-orange">Needs Attention</span></td></tr>
-              <tr><td>Arts</td><td>165</td><td>95 / 100</td><td><span class="mock-badge mb-green">On Track</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <p class="student-note">Students access Profolioo through their school — no separate signup needed.</p>
     </div>
   </div>
 </section>
@@ -987,90 +674,102 @@
 <!-- FEATURES -->
 <section class="features" id="features">
   <div class="reveal">
-    <div class="section-label">Features</div>
-    <h2 class="section-title">Built for the real rhythm of school life</h2>
-    <p class="section-sub">No more juggling Drive folders, email chains, and gradebooks. Profolioo brings everything together.</p>
+    <div class="section-eyebrow">Built-in features</div>
+    <h2 class="section-title">Everything a modern school needs. Nothing it doesn't.</h2>
+    <p class="section-sub">Every feature exists to save teachers time and give school leaders clear insight. No bloat, no learning curve.</p>
   </div>
-
-  <div class="features-grid reveal-stagger">
-    <div class="feature-item">
-      <div class="feature-icon">🎯</div>
+  <div class="features-inner reveal-stagger">
+    <div class="feat-item">
+      <div class="feat-icon">📊</div>
       <div>
-        <h4>Standards-Aligned Tracking</h4>
-        <p>Map every portfolio piece to your curriculum's learning objectives. See at a glance which standards students are meeting and where to focus next.</p>
+        <h4>Real-Time Class Dashboard</h4>
+        <p>See every student's submission status, feedback history, and growth trajectory in one live view. No more spreadsheet wrangling.</p>
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">🔒</div>
+    <div class="feat-item">
+      <div class="feat-icon">🎯</div>
       <div>
-        <h4>Privacy by Design</h4>
-        <p>FERPA &amp; COPPA compliant from day one. Students control what they share, with whom, and for how long. No data is ever sold or used for ads.</p>
+        <h4>Standards-Aligned Feedback</h4>
+        <p>Map comments and rubrics to your curriculum's learning standards automatically. Progress reports write themselves.</p>
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">💬</div>
+    <div class="feat-item">
+      <div class="feat-icon">🔗</div>
       <div>
-        <h4>Rich Feedback Tools</h4>
-        <p>Leave inline comments, voice notes, or video feedback directly on student work. Feedback that sticks because it's tied to what they actually made.</p>
+        <h4>LMS Integration</h4>
+        <p>Works with Google Classroom, Canvas, Schoology, and Clever. Your existing workflows remain intact — just massively upgraded.</p>
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">🔗</div>
+    <div class="feat-item">
+      <div class="feat-icon">🔒</div>
       <div>
-        <h4>LMS Integrations</h4>
-        <p>Connects with Google Classroom, Canvas, Schoology, and more. Your existing workflows stay intact — Profolioo just makes them richer.</p>
+        <h4>Privacy-First Architecture</h4>
+        <p>FERPA &amp; COPPA compliant from day one. Schools own their data. We never sell student information or use it for advertising.</p>
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">📱</div>
+    <div class="feat-item">
+      <div class="feat-icon">💬</div>
       <div>
-        <h4>Works on Any Device</h4>
-        <p>Students can upload from their phone during fieldwork, or at a desktop after school. The experience is seamless on every screen size.</p>
+        <h4>Rich Multimedia Feedback</h4>
+        <p>Leave text, voice, or video notes directly on student work. Feedback that's specific and contextual actually gets acted on.</p>
       </div>
     </div>
-    <div class="feature-item">
-      <div class="feature-icon">🚀</div>
+    <div class="feat-item">
+      <div class="feat-icon">👨‍👩‍👧</div>
       <div>
-        <h4>College-Ready Exports</h4>
-        <p>One click generates a polished, shareable portfolio URL or PDF — perfect for college applications, scholarship submissions, or parent showcases.</p>
+        <h4>Parent Visibility Portal</h4>
+        <p>Give parents a live window into their child's portfolio and progress — reducing report-night surprises and admin emails entirely.</p>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
-<!-- STATS -->
+<!-- HYPE / COUNTDOWN -->
+<div class="hype" id="hype">
+  <h2>Education is getting a portfolio upgrade. Be first.</h2>
+  <p>We're launching in late 2025. Waitlist members get founding pricing, priority onboarding, and a direct line to the team building this.</p>
+  <div class="countdown-row">
+    <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-label">Days</span></div>
+    <div class="cd-unit"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">Hours</span></div>
+    <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">Minutes</span></div>
+    <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">Seconds</span></div>
+  </div>
+  <a href="#waitlist" class="hype-cta">Reserve My Spot Now →</a>
+</div>
+
+<!-- <!-- STATS -->
 <div class="stats">
   <div class="stats-grid reveal-stagger">
-    <div class="stat-item">
+    <div>
       <div class="stat-number">1.2<span class="stat-unit">k</span></div>
-      <div class="stat-label">Educators in early access</div>
+      <div class="stat-label">Educators on the waitlist</div>
     </div>
-    <div class="stat-item">
-      <div class="stat-number">8.4<span class="stat-unit">k</span></div>
-      <div class="stat-label">Student portfolios created</div>
+    <div>
+      <div class="stat-number">40<span class="stat-unit">+</span></div>
+      <div class="stat-label">Schools already signed up</div>
     </div>
-    <div class="stat-item">
+    <div>
+      <div class="stat-number">6<span class="stat-unit">hr</span></div>
+      <div class="stat-label">Saved per teacher per week (projected)</div>
+    </div>
+    <div>
       <div class="stat-number">98<span class="stat-unit">%</span></div>
-      <div class="stat-label">Teacher satisfaction score</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number">3<span class="stat-unit">×</span></div>
-      <div class="stat-label">Faster feedback cycles</div>
+      <div class="stat-label">Satisfaction in beta pilot</div>
     </div>
   </div>
 </div>
 
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="testimonials">
-  <div class="reveal" style="text-align:center; max-width:600px; margin: 0 auto 0">
-    <div class="section-label">Real Stories</div>
-    <h2 class="section-title" style="max-width:100%;">Educators &amp; students love Profolioo</h2>
+  <div class="reveal" style="text-align:center; max-width:640px; margin:0 auto;">
+    <div class="section-eyebrow">Early voices</div>
+    <h2 class="section-title" style="max-width:100%;">Educators who've seen it can't wait</h2>
+    <p class="section-sub" style="max-width:100%;color:rgba(255,255,255,0.6);">From teachers to principals — here's what people are saying after seeing Profolioo in action.</p>
   </div>
-
   <div class="testi-grid reveal-stagger">
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"I finally have a way to see each student's growth over the year, not just a snapshot at exam time. The dashboard alone saved me hours every week."</p>
+      <p class="testi-quote">"I've been waiting for something like this for years. The dashboard alone would save me four hours a week. When can I actually use it?"</p>
       <div class="testi-author">
         <div class="testi-avatar">MT</div>
         <div>
@@ -1079,22 +778,9 @@
         </div>
       </div>
     </div>
-
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"When I applied to colleges, I sent my Profolioo link instead of a résumé. Three admissions officers told me it was the most impressive thing they'd seen."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">AK</div>
-        <div>
-          <div class="testi-name">Arjun Kapoor</div>
-          <div class="testi-role">Grade 12 Student · Lakeside ISD</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"Rolling out Profolioo school-wide took less than a week. Parent engagement at our end-of-year showcase went up 60%. The data tells the story for us."</p>
+      <p class="testi-quote">"We piloted the early version with three teachers in the spring. The feedback was unanimous: this is the simplest portfolio tool anyone had ever tried."</p>
       <div class="testi-author">
         <div class="testi-avatar">DR</div>
         <div>
@@ -1103,10 +789,9 @@
         </div>
       </div>
     </div>
-
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"I used to dread portfolio season — printing, scanning, chasing submissions. Now it's honestly my favourite time of year. Students are actually proud of what they share."</p>
+      <p class="testi-quote">"Finally something that speaks the language of teachers, not IT administrators. Every decision in Profolioo clearly came from someone who's been in a classroom."</p>
       <div class="testi-author">
         <div class="testi-avatar">SL</div>
         <div>
@@ -1115,119 +800,91 @@
         </div>
       </div>
     </div>
-
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"Seeing my own work organised and presented properly made me realise how much I'd actually learned. It changed how I think about what I do in class every day."</p>
+      <p class="testi-quote">"Our district has been looking for a portfolio solution that doesn't require a three-week training programme. Profolioo is the first one that actually just works."</p>
       <div class="testi-author">
-        <div class="testi-avatar">NC</div>
+        <div class="testi-avatar">KW</div>
         <div>
-          <div class="testi-name">Nadia Chen</div>
-          <div class="testi-role">Grade 9 Student · Brightfield School</div>
+          <div class="testi-name">Kevin Walsh</div>
+          <div class="testi-role">Curriculum Director · Lakeside ISD</div>
         </div>
       </div>
     </div>
-
     <div class="testi-card">
       <div class="testi-stars">★★★★★</div>
-      <p class="testi-quote">"The inline video feedback feature is a game-changer for my English class. Students actually watch it and apply the notes — which has never happened with written comments."</p>
+      <p class="testi-quote">"I showed the demo to our maths and English departments. Both heads of department asked to be on the waitlist within five minutes. That says everything."</p>
       <div class="testi-author">
         <div class="testi-avatar">JP</div>
         <div>
           <div class="testi-name">James Park</div>
-          <div class="testi-role">English Teacher · Crestwood College</div>
+          <div class="testi-role">Deputy Head · Crestwood College</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"The voice feedback feature changed everything in our beta. Students listened to comments they'd completely ignored in writing. The engagement difference was remarkable."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AN</div>
+        <div>
+          <div class="testi-name">Anita Nair</div>
+          <div class="testi-role">English Teacher · Brightfield School</div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <!-- FAQ -->
 <section class="faq" id="faq">
-  <div class="faq-grid">
+  <div class="faq-layout">
     <div>
-      <div class="section-label reveal">Common Questions</div>
-      <h2 class="section-title reveal">Everything you want to know</h2>
+      <div class="section-eyebrow reveal">Questions</div>
+      <h2 class="section-title reveal">Everything you want to know before you sign up</h2>
       <p class="section-sub reveal">Can't find the answer? Email us at <a href="mailto:hello@profolioo.com" style="color:var(--orange);">hello@profolioo.com</a></p>
-
-      <div class="faq-list" style="margin-top:2.5rem;" id="faqList">
+      <div class="faq-list" style="margin-top:2.5rem;">
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Is Profolioo free to use?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            During early access, Profolioo is completely free for individual teachers and students. School-wide and district plans will be priced per-student when we launch — early access members lock in a significant founding discount.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">When does Profolioo launch?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">We're targeting a full launch in late 2025, ahead of the new school year. Waitlist members get priority early access and will be the first schools onboarded — often weeks before public availability.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            What file types can students upload?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            Profolioo supports images (JPG, PNG, GIF, SVG), documents (PDF, DOCX, PPTX), video (MP4, MOV up to 500MB), audio (MP3, WAV), and links to external content like YouTube, Google Docs, or Figma.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">Is it free?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">Individual teachers joining the waitlist will get a free plan. School-wide and district plans will be priced per-student — waitlist members lock in a founding discount that won't be available after public launch.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Is student data safe and private?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            Absolutely. Profolioo is FERPA-compliant and COPPA-compliant. All data is encrypted at rest and in transit. We never sell student data or use it for advertising. Schools retain full ownership of their data and can export or delete it at any time.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">Does it work with Google Classroom or Canvas?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">Yes — Google Classroom, Canvas, Schoology, and Clever integrations are built into the launch version. You can import rosters, sync assignments, and push grades back to your existing LMS.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            Does it integrate with Google Classroom or Canvas?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            Yes — Google Classroom, Canvas, Schoology, and Clever integrations are available in the full release. During early access you can import class rosters and sync assignments. Full grade passback is coming in Q3.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">Is student data safe?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">Profolioo is FERPA-compliant and COPPA-compliant. All data is encrypted at rest and in transit. Schools retain full ownership — we never sell student data or use it for any purpose beyond running the platform.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            How long does onboarding take for a school?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            Most schools are up and running in under a week. We provide a dedicated onboarding guide, a live setup call with our team, and a template library to get classes started immediately. No IT department required.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">How long does school onboarding take?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">Most schools are running Profolioo in under a week. We provide a dedicated onboarding call, a template library, and hands-on support for your first few classes. No IT department required.</div>
         </div>
-
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            When will Profolioo fully launch?
-            <span class="faq-arrow">+</span>
-          </button>
-          <div class="faq-body">
-            We're targeting a full public launch in late 2025, ahead of the new school year. Waitlist members get early access, priority onboarding, and founding pricing. Join today to secure your spot.
-          </div>
+          <button class="faq-q" onclick="toggleFaq(this)">Do students need to create their own accounts?<span class="faq-arrow">+</span></button>
+          <div class="faq-body">No. Teachers or admins provision student accounts in bulk — via CSV, Google Classroom sync, or SSO. Students log in with their existing school credentials. Zero signup friction for them.</div>
         </div>
       </div>
     </div>
-
-    <div class="faq-cta-box reveal">
-      <h3>Ready to bring portfolios to life at your school?</h3>
-      <p>Join over 1,200 educators already on the Profolioo waitlist. Early access is limited — secure your spot now and get founding member pricing when we launch.</p>
-      <a href="#waitlist" class="btn-primary" style="text-align:center; display:block;">Join the Waitlist →</a>
-      <div style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-top:0.5rem;">No credit card required · Cancel anytime</div>
+    <div class="faq-box reveal">
+      <h3>Get in before the doors open.</h3>
+      <p>Waitlist members get founding pricing, priority onboarding, and the ability to shape what Profolioo becomes. We're personally onboarding every school — spots are genuinely limited.</p>
+      <a href="#waitlist" class="btn-primary" style="display:block;text-align:center;">Join the Waitlist →</a>
+      <p class="faq-box-note">No credit card · No commitment · Cancel anytime</p>
     </div>
   </div>
 </section>
 
-<!-- WAITLIST -->
+<!-- <!-- WAITLIST -->
 <section class="waitlist" id="waitlist">
   <div class="waitlist-box reveal">
-    <div class="section-label" style="justify-content:center;">Join the Waitlist</div>
-    <h2 class="section-title" style="max-width:100%;">Be the first to experience Profolioo</h2>
-    <p class="section-sub" style="max-width:100%; text-align:center; margin: 0.8rem auto 0;">We're opening access to schools and educators on a rolling basis. Sign up below and we'll be in touch within 48 hours.</p>
+    <div class="section-eyebrow" style="justify-content:center;">Early Access</div>
+    <h2 class="section-title">Reserve your school's spot today.</h2>
+    <p class="section-sub" style="max-width:100%;text-align:center;margin:0.9rem auto 0;">We're opening access school by school. Fill in the form and our team will reach out within 48 hours to walk you through the platform.</p>
 
     <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlist(event)">
       <div class="form-row">
@@ -1240,22 +897,20 @@
           <input class="form-input" id="lname" type="text" placeholder="Smith" required />
         </div>
       </div>
-
       <div class="form-field">
         <label class="form-label" for="email">Work Email</label>
         <input class="form-input" id="email" type="email" placeholder="jane@yourschool.edu" required />
       </div>
-
       <div class="form-row">
         <div class="form-field">
           <label class="form-label" for="role">Your Role</label>
           <select class="form-select" id="role" required>
             <option value="" disabled selected>Select your role</option>
             <option>Teacher / Educator</option>
-            <option>School Administrator</option>
-            <option>District Leader</option>
-            <option>Student</option>
-            <option>Parent</option>
+            <option>Head of Department</option>
+            <option>School Administrator / Principal</option>
+            <option>District / Curriculum Leader</option>
+            <option>IT / EdTech Coordinator</option>
             <option>Other</option>
           </select>
         </div>
@@ -1264,31 +919,52 @@
           <input class="form-input" id="school" type="text" placeholder="Greenwood Academy" required />
         </div>
       </div>
-
-      <button class="form-submit" type="submit">Secure My Early Access Spot →</button>
+      <div class="form-field">
+        <label class="form-label" for="size">Approximate Number of Students</label>
+        <select class="form-select" id="size">
+          <option value="" disabled selected>School size</option>
+          <option>Under 100</option>
+          <option>100 – 500</option>
+          <option>500 – 1,000</option>
+          <option>1,000 – 5,000</option>
+          <option>5,000+</option>
+        </select>
+      </div>
+      <button class="form-submit" type="submit">Secure My School's Early Access →</button>
     </form>
 
     <div class="success-msg" id="successMsg">
-      🎉 You're on the list! We'll be in touch within 48 hours with your early access details.
+      🎉 You're on the list! Our team will be in touch within 48 hours with your personal onboarding details.
     </div>
-
-    <p class="waitlist-note">🔒 No spam, ever. Unsubscribe anytime.</p>
+    <p class="waitlist-note">🔒 No credit card required. No spam, ever.</p>
   </div>
-</section>
+</section> -->
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <a href="#" class="nav-logo">Profolio<span>o</span></a>
-      <p>The portfolio platform that helps students shine, teachers focus, and schools grow — all in one place.</p>
+      <div class="footer-logo">
+        <svg width="1008" height="285" viewBox="0 0 1008 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11 274.779L11.2954 272.121C14.84 271.136 17.5969 268.97 19.5662 265.622C21.5354 262.274 23.2092 256.957 24.5877 249.671L49.9908 107.001C50.3846 104.244 50.7785 101.487 51.1723 98.7298C51.5662 95.9728 51.7631 93.7082 51.7631 91.9359C51.7631 85.4375 49.7938 81.0067 45.8554 78.6436L46.1508 75.9852L98.1385 69.4867L90.1631 113.204C95.2831 98.6313 101.782 87.5052 109.658 79.8252C117.535 71.9482 126.298 68.0098 135.948 68.0098C143.431 68.0098 149.929 70.2744 155.443 74.8036C160.957 79.1359 165.289 85.339 168.44 93.4128C171.591 101.487 173.166 111.037 173.166 122.065C173.166 136.637 171.098 150.324 166.963 163.124C163.025 175.924 157.511 187.148 150.422 196.797C143.332 206.447 135.062 214.028 125.609 219.542C116.354 224.859 106.409 227.517 95.7754 227.517C91.2462 227.517 86.6185 226.73 81.8923 225.154C77.1662 223.579 73.1292 221.413 69.7815 218.656L65.9415 244.059C65.3508 247.801 65.0554 251.05 65.0554 253.807C65.0554 258.73 66.1385 262.57 68.3046 265.327C70.4708 268.281 74.0154 270.545 78.9385 272.121L78.6431 274.779H11ZM94.0031 221.019C97.3508 221.019 100.698 219.05 104.046 215.111C107.394 211.173 110.545 205.856 113.498 199.161C116.452 192.268 119.111 184.49 121.474 175.825C123.837 166.964 125.609 157.61 126.791 147.764C128.169 137.721 128.858 127.677 128.858 117.634C128.858 108.576 127.677 101.684 125.314 96.9575C123.148 92.0344 120.095 89.5728 116.157 89.5728C112.809 89.5728 109.363 91.6405 105.818 95.7759C102.471 99.9113 99.2215 105.425 96.0708 112.317C92.92 119.21 90.1631 127.087 87.8 135.948C85.4369 144.613 83.4677 153.77 81.8923 163.419C80.5138 172.871 79.8246 182.127 79.8246 191.185C79.8246 200.637 81.0062 208.022 83.3692 213.339C85.7323 218.459 89.2769 221.019 94.0031 221.019Z" fill="white" opacity="0.9"/>
+          <path d="M175.324 224.564L194.228 107.001C194.819 103.653 195.213 100.699 195.41 98.139C195.804 95.579 196.001 93.3144 196.001 91.3451C196.001 87.8005 195.508 85.1421 194.524 83.3698C193.736 81.4005 192.358 79.8252 190.388 78.6436L190.684 75.9852L243.262 69.4867L235.582 116.748C240.505 100.797 245.822 88.9821 251.533 81.3021C257.244 73.4252 263.152 69.4867 269.256 69.4867C272.801 69.4867 275.656 70.5698 277.822 72.7359C280.185 74.9021 281.367 77.659 281.367 81.0067C281.367 84.7482 280.185 87.8005 277.822 90.1636C275.656 92.3298 272.702 93.4128 268.961 93.4128C267.976 93.4128 266.992 93.4128 266.007 93.4128C265.022 93.2159 263.841 93.1175 262.462 93.1175C254.979 93.1175 248.973 97.6467 244.444 106.705C240.112 115.567 235.582 128.957 230.856 146.877L218.45 224.564H175.324Z" fill="white" opacity="0.9"/>
+          <path d="M325.864 227.517C314.048 227.517 303.71 224.761 294.848 219.247C286.184 213.536 279.39 205.561 274.467 195.321C269.544 185.081 267.082 173.265 267.082 159.874C267.082 146.877 269.052 134.865 272.99 123.837C276.928 112.613 282.344 102.865 289.236 94.5944C296.325 86.1267 304.498 79.6282 313.753 75.099C323.205 70.3728 333.445 68.0098 344.473 68.0098C356.288 68.0098 366.528 70.8651 375.193 76.5759C384.055 82.0898 390.947 89.9667 395.87 100.207C400.793 110.447 403.255 122.262 403.255 135.653C403.255 148.65 401.285 160.761 397.347 171.985C393.408 183.013 387.895 192.761 380.805 201.228C373.913 209.499 365.741 215.997 356.288 220.724C347.033 225.253 336.892 227.517 325.864 227.517ZM325.864 221.314C329.408 221.314 332.756 219.247 335.907 215.111C339.255 210.976 342.307 205.265 345.064 197.979C347.821 190.693 350.184 182.324 352.153 172.871C354.319 163.419 355.993 153.474 357.175 143.037C358.356 132.404 358.947 121.77 358.947 111.136C358.947 86.5205 354.122 74.2129 344.473 74.2129C340.928 74.2129 337.482 76.2805 334.135 80.4159C330.984 84.5513 328.03 90.2621 325.273 97.5482C322.516 104.834 320.055 113.204 317.888 122.656C315.919 132.108 314.344 142.151 313.162 152.785C311.981 163.222 311.39 173.757 311.39 184.391C311.39 209.007 316.215 221.314 325.864 221.314Z" fill="white" opacity="0.9"/>
+          <path d="M448.317 224.563V109.954H419.664V75.6892H448.317V62.3969C448.317 31.3815 470.471 11 504.144 11H531.911V45.2646H509.461C497.646 45.2646 489.671 52.9446 489.671 64.76V75.6892H531.911V109.954H489.671V224.563H448.317Z" fill="#FF7300"/>
+          <path d="M611.987 226.926C566.203 226.926 533.415 194.434 533.415 150.126C533.415 105.818 566.203 73.3262 611.987 73.3262C657.772 73.3262 690.56 105.818 690.56 150.126C690.56 194.434 657.772 226.926 611.987 226.926ZM611.987 191.48C634.141 191.48 649.206 174.643 649.206 150.126C649.206 125.314 634.141 108.477 611.987 108.477C589.834 108.477 574.769 125.314 574.769 150.126C574.769 174.643 589.834 191.48 611.987 191.48Z" fill="#FF7300"/>
+          <path d="M711.301 224.563V11H752.36V224.563H711.301Z" fill="#FF7300"/>
+          <path d="M781.397 224.563V75.6892H822.456V224.563H781.397ZM780.216 11H823.933V54.4215H780.216V11Z" fill="#FF7300"/>
+          <path d="M917.646 150.717C871.926 150.717 839.184 181.959 839.184 224.563H880.48C880.48 200.705 895.523 184.516 917.646 184.516C939.768 184.516 954.812 200.705 954.812 224.563H996.107C996.107 181.959 963.366 150.717 917.646 150.717Z" fill="#FF7300"/>
+          <path d="M918.532 132.256C964.252 132.256 996.994 101.013 996.994 58.4097H955.698C955.698 82.2677 940.655 98.457 918.532 98.457C896.41 98.457 881.366 82.2677 881.366 58.4097H840.071C840.071 101.013 872.812 132.256 918.532 132.256Z" fill="#FF7300"/>
+        </svg>
+      </div>
+      <p>The portfolio platform that helps teachers teach, schools lead, and students shine — launching 2025.</p>
     </div>
     <div class="footer-col">
-      <h5>Product</h5>
+      <h5>Platform</h5>
       <ul>
-        <li><a href="#screenshots">Product Tour</a></li>
+        <li><a href="#personas">For Teachers</a></li>
+        <li><a href="#personas">For Schools</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#personas">Who It's For</a></li>
         <li><a href="#waitlist">Join Waitlist</a></li>
       </ul>
     </div>
@@ -1313,7 +989,7 @@
   </div>
   <div class="footer-bottom">
     <span>© 2025 Profolioo Inc. All rights reserved.</span>
-    <div style="display:flex; gap:1.2rem;">
+    <div style="display:flex;gap:1.4rem;">
       <a href="#">Twitter</a>
       <a href="#">LinkedIn</a>
       <a href="#">Instagram</a>
@@ -1323,68 +999,62 @@
 </footer>
 
 <script>
-  /* ── NAVBAR SCROLL ── */
+  /* ── NAV SCROLL ── */
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 20);
-  });
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 20));
 
   /* ── MOBILE NAV ── */
-  const burgerBtn = document.getElementById('burgerBtn');
-  const mobileNav = document.getElementById('mobileNav');
-  burgerBtn.addEventListener('click', () => {
-    mobileNav.classList.toggle('open');
-  });
-  function closeMobileNav() { mobileNav.classList.remove('open'); }
+  document.getElementById('burgerBtn').addEventListener('click', () =>
+    document.getElementById('mobileNav').classList.toggle('open'));
+  function closeMobileNav() { document.getElementById('mobileNav').classList.remove('open'); }
 
-  /* ── PERSONA TYPEWRITER ── */
-  const personas = ['every student.', 'every teacher.', 'every school.'];
-  let pIdx = 0, cIdx = 0, deleting = false;
-  const pEl = document.getElementById('persona-text');
-
-  function typePersona() {
-    const word = personas[pIdx];
-    if (!deleting) {
-      pEl.textContent = word.slice(0, ++cIdx);
-      if (cIdx === word.length) {
-        deleting = true;
-        setTimeout(typePersona, 1800);
-        return;
-      }
-      setTimeout(typePersona, 80);
+  /* ── TYPEWRITER (teacher & school focused) ── */
+  const words = ['teachers', 'schools', 'educators', 'departments'];
+  let wIdx = 0, cIdx = 0, del = false;
+  const el = document.getElementById('swap-word');
+  function type() {
+    const w = words[wIdx];
+    if (!del) {
+      el.textContent = w.slice(0, ++cIdx);
+      if (cIdx === w.length) { del = true; setTimeout(type, 2000); return; }
+      setTimeout(type, 85);
     } else {
-      pEl.textContent = word.slice(0, --cIdx);
-      if (cIdx === 0) {
-        deleting = false;
-        pIdx = (pIdx + 1) % personas.length;
-        setTimeout(typePersona, 300);
-        return;
-      }
-      setTimeout(typePersona, 45);
+      el.textContent = w.slice(0, --cIdx);
+      if (cIdx === 0) { del = false; wIdx = (wIdx + 1) % words.length; setTimeout(type, 300); return; }
+      setTimeout(type, 48);
     }
   }
-  typePersona();
+  type();
 
-  /* ── SCREENSHOT TABS ── */
-  function switchTab(name) {
-    document.querySelectorAll('.screenshot-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + name).classList.add('active');
-    event.currentTarget.classList.add('active');
+  /* ── COUNTDOWN (target: Oct 1 2025) ── */
+  const target = new Date('2025-10-01T00:00:00').getTime();
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
   }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
   /* ── FAQ ── */
   function toggleFaq(btn) {
     const body = btn.nextElementSibling;
-    const isOpen = body.classList.contains('open');
+    const open = body.classList.contains('open');
     document.querySelectorAll('.faq-body').forEach(b => b.classList.remove('open'));
-    document.querySelectorAll('.faq-arrow').forEach(a => { a.style.transform = ''; a.style.background = ''; a.style.color = ''; });
-    if (!isOpen) {
+    document.querySelectorAll('.faq-arrow').forEach(a => { a.style.transform=''; a.style.background=''; a.style.color=''; });
+    if (!open) {
       body.classList.add('open');
-      const arrow = btn.querySelector('.faq-arrow');
-      arrow.style.transform = 'rotate(45deg)';
-      arrow.style.background = 'var(--orange)';
-      arrow.style.color = '#fff';
+      const arr = btn.querySelector('.faq-arrow');
+      arr.style.transform = 'rotate(45deg)';
+      arr.style.background = 'var(--orange)';
+      arr.style.color = '#fff';
     }
   }
 
@@ -1392,12 +1062,10 @@
   function handleWaitlist(e) {
     e.preventDefault();
     const form = document.getElementById('waitlistForm');
-    const success = document.getElementById('successMsg');
-    form.style.opacity = '0.5';
-    form.style.pointerEvents = 'none';
+    form.style.opacity = '0.5'; form.style.pointerEvents = 'none';
     setTimeout(() => {
       form.style.display = 'none';
-      success.classList.add('visible');
+      document.getElementById('successMsg').classList.add('visible');
     }, 800);
   }
 
@@ -1406,43 +1074,21 @@
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       entry.target.querySelectorAll('.stat-number').forEach(el => {
-        const text = el.textContent.replace(/[^0-9.]/g, '');
-        const target = parseFloat(text);
+        const raw = el.textContent.replace(/[^0-9.]/g, '');
+        const tgt = parseFloat(raw);
         const unit = el.querySelector('.stat-unit')?.outerHTML || '';
-        const suffix = el.textContent.includes('k') ? 'k' : el.textContent.includes('%') ? '%' : el.textContent.includes('×') ? '×' : '';
-        let start = 0; const dur = 1600;
-        const step = timestamp => {
-          if (!start) start = timestamp;
-          const progress = Math.min((timestamp - start) / dur, 1);
-          const val = easeOut(progress) * target;
-          el.innerHTML = (val % 1 === 0 || progress === 1 ? Math.round(val) : val.toFixed(1)) + suffix + unit;
-          if (progress < 1) requestAnimationFrame(step);
+        const suf = el.textContent.includes('k') ? 'k' : el.textContent.includes('%') ? '%' : el.textContent.includes('hr') ? 'hr' : el.textContent.includes('+') ? '+' : '';
+        let t0 = 0;
+        const step = ts => {
+          if (!t0) t0 = ts;
+          const p = Math.min((ts - t0) / 1600, 1);
+          const v = (1 - Math.pow(1-p, 3)) * tgt;
+          el.innerHTML = (v % 1 === 0 || p === 1 ? Math.round(v) : v.toFixed(1)) + suf + unit;
+          if (p < 1) requestAnimationFrame(step);
         };
         requestAnimationFrame(step);
       });
-      counterObserver.unobserve(entry.target);
+      cntObs.unobserve(entry.target);
     });
   }
-  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-  const counterObserver = new IntersectionObserver(animateCounters, { threshold: 0.4 });
-  document.querySelectorAll('.stats').forEach(el => counterObserver.observe(el));
-
-  /* ── SCROLL REVEAL ── */
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
-
-  /* ── SMOOTH ANCHOR OFFSET ── */
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        window.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
-      }
-    });
-  });
-</script>
-</body>
-</html>
+  con
